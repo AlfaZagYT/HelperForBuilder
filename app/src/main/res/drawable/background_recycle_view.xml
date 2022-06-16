@@ -5,7 +5,7 @@
             <padding android:right="10dp" android:left="10dp" android:top="10dp" android:bottom="10dp"/>
             <corners android:topLeftRadius="30dp" android:bottomRightRadius="20dp"/>
             <stroke android:color="@color/main" android:width="2dp"/>
-            <solid android:color="@color/ic_launcher_background"/>
+            <solid android:color="@color/recycleView_background"/>
         </shape>
     </item>
 </selector>

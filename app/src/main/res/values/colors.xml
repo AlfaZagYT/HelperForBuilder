@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#2d3134</color>
     <color name="main">#464749</color>
-    <color name="recycleView_background">#343436</color>
+    <color name="ic_launcher_background">#353F50</color>
+    <color name="recycleView_background">#33373a</color>
 </resources>
