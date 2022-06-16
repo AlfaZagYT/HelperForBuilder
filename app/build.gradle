@@ -10,7 +10,7 @@ android {
         minSdk 21
         targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,6 +35,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation files('C:\\Users\\Артём\\Documents\\sqljdbc_10.2\\rus\\mssql-jdbc-10.2.1.jre8')
+    implementation files('libs\\mssql-jdbc-10.2.1.jre8.jar')
+    implementation files('libs\\mysql-connector-java-5.1.47.jar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

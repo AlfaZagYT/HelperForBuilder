@@ -1,37 +1,65 @@
 package com.example.helperforbuilder;
 
-import android.os.Bundle;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import com.example.helperforbuilder.databinding.ActivityHistoryBinding;
+import android.widget.Button;
+import android.widget.EditText;
 
-public class History extends AppCompatActivity {
+import java.util.ArrayList;
 
-private ActivityHistoryBinding binding;
+public class History extends MainActivity {
+
+    public ArrayList<Save> saves = new ArrayList<Save>();
+    protected SavesAdapter adapter;
+    protected RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_history);
 
-     binding = ActivityHistoryBinding.inflate(getLayoutInflater());
-     setContentView(binding.getRoot());
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Toolbar toolbar = binding.toolbar;
-        setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle(getTitle());
+        recyclerView = findViewById(R.id.list);
+        adapter = new SavesAdapter(this, saves);
+        recyclerView.setAdapter(adapter);
 
-        FloatingActionButton fab = binding.fab;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            for (int i = 0; i < getSize(); i++) {
+                String title = mySavesSP.getString(APP_PREFERENCES_TITLE + i, "");
+                String text = mySavesSP.getString(APP_PREFERENCES_TEXT + i, "");
+                saves.add(new Save(title, text));
             }
-        });
+            adapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.removeItem(R.id.itemHistory);
+        return super.onPrepareOptionsMenu(menu);
     }
 }
+
