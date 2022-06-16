@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/com/example/helperforbuilder/Save.java
+/app/src/main/java/com/example/helperforbuilder/SavesAdapter.java
