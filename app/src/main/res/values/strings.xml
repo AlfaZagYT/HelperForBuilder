@@ -18,4 +18,5 @@
     <string name="title">Введите заголовок</string>
     <string name="text">Введите текст</string>
     <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
 </resources>

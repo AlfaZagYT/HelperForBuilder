@@ -18,4 +18,5 @@
     <string name="title">Enter title</string>
     <string name="text">Enter text</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
 </resources>
