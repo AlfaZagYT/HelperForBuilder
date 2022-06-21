@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                             sizeUp();
                             editor.putString(APP_PREFERENCES_TITLE + getSize(), titleDialog.getText().toString());
                             editor.putString(APP_PREFERENCES_TEXT + getSize(), textDialog.getText().toString());
-                            editor.commit();
+                            editor.apply();
                             Log.i("SaveTest", "onClick: Clicked");
                             dialog.dismiss();
                         }
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             editor.remove(APP_PREFERENCES_TITLE + position);
             editor.remove(APP_PREFERENCES_TEXT + position);
             editor.putInt(APP_PREFERENCES_SIZE, mySavesSP.getInt(APP_PREFERENCES_SIZE, 0) - 1);
-            editor.commit();
+            editor.apply();
             Log.i("STATUS_SYSTEM", "IT`S WORKING???");
         } catch (Exception e) {
             Log.i("STATUS_SYSTEM", "delete: ", e);
