@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             resultText3_1 = getString(R.string.result3_1);
             meterInSquare = getString(R.string.metersInSquare);
             error = getString(R.string.error);
-//—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+//—— —— —— —— —— —— —— —— —— Кнопка подсчёта  —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText(text);
                 }
             });
+//—— —— —— —— —— —— —— —— —— Кнопка сохранения —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
             buttonSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -213,13 +214,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         item.setIntent(new Intent(this, History.class));
-//        switch (item.getItemId()) {
-//            case R.id.itemHistory:
-//                startActivity(new Intent(this, History.class));
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -238,14 +232,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void delete(int position) {
-        try {
-            editor.remove(APP_PREFERENCES_TITLE + position);
-            editor.remove(APP_PREFERENCES_TEXT + position);
-            editor.putInt(APP_PREFERENCES_SIZE, mySavesSP.getInt(APP_PREFERENCES_SIZE, 0) - 1);
-            editor.apply();
-            Log.i("STATUS_SYSTEM", "IT`S WORKING???");
-        } catch (Exception e) {
-            Log.i("STATUS_SYSTEM", "delete: ", e);
-        }
+        editor.remove(APP_PREFERENCES_TITLE + position);
+        editor.remove(APP_PREFERENCES_TEXT + position);
+        editor.putInt(APP_PREFERENCES_SIZE, mySavesSP.getInt(APP_PREFERENCES_SIZE, 0) - 1);
+        editor.apply();
     }
 }
