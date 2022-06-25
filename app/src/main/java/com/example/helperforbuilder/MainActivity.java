@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             materialW = parseInt(materialWidth.getText().toString());
             this.protect4 = true;
         }
-        if (!materialCount.getText().toString().equals("")) {
+        if (!materialCount.getText().toString().equals("") && !materialCount.getText().toString().equals("0")) {
             materialC = parseInt(materialCount.getText().toString());
             this.protect5 = true;
         }
