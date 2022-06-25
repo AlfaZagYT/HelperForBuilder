@@ -107,11 +107,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     protect();
-                    if (protect1 && protect2 && protect3 && protect4 && protect5) {
-                        math();
+                        math(protect1, protect2, protect3, protect4, protect5);
                         textView.setText(text);
-                        protectReset();
-                    }
                 }
             });
             buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -145,36 +142,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+//—— —— —— —— —— —— —— —— —— Защита и подсчёт —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+
     private void protect() {
         if (roomLength.getText().toString().equals("")) {
             roomLength.setError(error);
         } else {
             roomL = parseInt(roomLength.getText().toString());
-            protect1 = true;
+            this.protect1 = true;
         }
         if (roomWidth.getText().toString().equals("")) {
             roomWidth.setError(error);
         } else {
             roomW = parseInt(roomWidth.getText().toString());
-            protect2 = true;
+            this.protect2 = true;
         }
         if (materialLength.getText().toString().equals("")) {
             materialLength.setError(error);
         } else {
             materialL = parseInt(materialLength.getText().toString());
-            protect3 = true;
+            this.protect3 = true;
         }
         if (materialWidth.getText().toString().equals("")) {
             materialWidth.setError(error);
         } else {
             materialW = parseInt(materialWidth.getText().toString());
-            protect4 = true;
+            this.protect4 = true;
         }
-        if (materialCount.getText().toString().equals("")) {
-            materialCount.setError(error);
-        } else {
+        if (!materialCount.getText().toString().equals("")) {
             materialC = parseInt(materialCount.getText().toString());
-            protect5 = true;
+            this.protect5 = true;
         }
     }
 
@@ -186,16 +183,25 @@ public class MainActivity extends AppCompatActivity {
         this.protect5 = false;
     }
 
-    protected void math() {
+    protected void math(boolean protect1, boolean protect2, boolean protect3, boolean protect4, boolean protect5) {
         Square = roomL * roomW;
         SquareMaterial = materialL * materialW;
-        needMaterialCount = (int) Math.ceil(Square / SquareMaterial);
-        needCountPackage = (int) Math.ceil((Square / SquareMaterial) / materialC);
-        text = resultText1 + " " + formattedDouble.format(Square / 10000) + " " + meterInSquare + "\n" +
-                resultText2 + " " + needMaterialCount + " " + resultText2_1 + "\n" +
-                resultText3 + " " + needCountPackage + " " + resultText3_1;
+        if (protect1 && protect2 && protect3 && protect4 && protect5) {
+            needMaterialCount = (int) Math.ceil(Square / SquareMaterial);
+            needCountPackage = (int) Math.ceil((Square / SquareMaterial) / materialC);
+            text = resultText1 + " " + formattedDouble.format(Square / 10000) + " " + meterInSquare + "\n" +
+                    resultText2 + " " + needMaterialCount + " " + resultText2_1 + "\n" +
+                    resultText3 + " " + needCountPackage + " " + resultText3_1;
+        }else if (protect1 && protect2 && protect3 && protect4 && !protect5) {
+            needMaterialCount = (int) Math.ceil(Square / SquareMaterial);
+            text = resultText1 + " " + formattedDouble.format(Square / 10000) + " " + meterInSquare + "\n" +
+                    resultText2 + " " + needMaterialCount + " " + resultText2_1;
+        }
+        protectReset();
     }
 
+
+//—— —— —— —— —— —— —— —— —— Menu —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -216,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
 //        }
         return super.onOptionsItemSelected(item);
     }
+
+//—— —— —— —— —— —— —— —— —— Shared Preferences —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
 
     public int getSize() {
         return mySavesSP.getInt(APP_PREFERENCES_SIZE, 0);
