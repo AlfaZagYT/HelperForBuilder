@@ -31,49 +31,28 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static SharedPreferences mySavesSP;
-    public static final String APP_PREFERENCES = "mySaves";
-    public static final String APP_PREFERENCES_TITLE = "Title";
-    public static final String APP_PREFERENCES_TEXT = "Text";
-    public static final String APP_PREFERENCES_SIZE = "Size";
-    public static SharedPreferences.Editor editor;
+    protected static SharedPreferences mySavesSP;
+    protected static final String APP_PREFERENCES = "mySaves";
+    protected static final String APP_PREFERENCES_TITLE = "Title";
+    protected static final String APP_PREFERENCES_TEXT = "Text";
+    protected static final String APP_PREFERENCES_SIZE = "Size";
+    protected static SharedPreferences.Editor editor;
 
+    //—— —— —— —— —— —— —— —— —— Объявление переменных  —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
     private double Square = 0;
-    private int SquareMaterial = 0;
-    private int needMaterialCount = 0;
-    private int needCountPackage = 0;
+    private int SquareMaterial, needMaterialCount, needCountPackage = 0;
 
-    private int roomL = 0;
-    private int roomW = 0;
-    private int materialL = 0;
-    private int materialW = 0;
-    private int materialC = 0;
+    private int roomL, roomW, materialL, materialW, materialC = 0;
 
-    private boolean protect1 = false;
-    private boolean protect2 = false;
-    private boolean protect3 = false;
-    private boolean protect4 = false;
-    private boolean protect5 = false;
+    private boolean protect1, protect2, protect3, protect4, protect5 = false;
 
-    private EditText roomLength;
-    private EditText roomWidth;
-    private EditText materialLength;
-    private EditText materialWidth;
-    private EditText materialCount;
+    private EditText roomLength, roomWidth, materialLength, materialWidth, materialCount;
 
     private TextView textView;
 
-    private Button button;
-    private Button buttonSave;
+    private Button button, buttonSave;
 
-    private String text;
-    private String resultText1;
-    private String resultText2;
-    private String resultText2_1;
-    private String resultText3;
-    private String resultText3_1;
-    private String meterInSquare;
-    private String error;
+    private String text, resultText1, resultText2, resultText2_1, resultText3, resultText3_1, meterInSquare, error;
 
     private final DecimalFormat formattedDouble = new DecimalFormat("#0.##");
 
@@ -82,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); {
         AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
-//—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+//—— —— —— —— —— —— —— —— —— Определение переменных  —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
             mySavesSP = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
             editor = mySavesSP.edit();
 
@@ -102,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             resultText3_1 = getString(R.string.result3_1);
             meterInSquare = getString(R.string.metersInSquare);
             error = getString(R.string.error);
-//—— —— —— —— —— —— —— —— —— Кнопка подсчёта  —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+//—— —— —— —— —— —— —— —— —— Кнопка подсчёта —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText(text);
                 }
             });
-//—— —— —— —— —— —— —— —— —— Кнопка сохранения —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+//—— —— —— —— —— —— —— —— —— Кнопка сохранения —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
             buttonSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -129,11 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            sizeUp();
-                            editor.putString(APP_PREFERENCES_TITLE + getSize(), titleDialog.getText().toString());
-                            editor.putString(APP_PREFERENCES_TEXT + getSize(), textDialog.getText().toString());
-                            editor.apply();
-                            Log.i("SaveTest", "onClick: Clicked");
+                            save(titleDialog, textDialog);
                             dialog.dismiss();
                         }
                     });
@@ -143,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//—— —— —— —— —— —— —— —— —— Защита и подсчёт —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+//—— —— —— —— —— —— —— —— —— Защита и подсчёт —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
 
     private void protect() {
         if (roomLength.getText().toString().equals("")) {
@@ -176,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void protectReset() {
+    private void protectReset() {
         this.protect1 = false;
         this.protect2 = false;
         this.protect3 = false;
@@ -184,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         this.protect5 = false;
     }
 
-    protected void math(boolean protect1, boolean protect2, boolean protect3, boolean protect4, boolean protect5) {
+    private void math(boolean protect1, boolean protect2, boolean protect3, boolean protect4, boolean protect5) {
         Square = roomL * roomW;
         SquareMaterial = materialL * materialW;
         if (protect1 && protect2 && protect3 && protect4 && protect5) {
@@ -202,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//—— —— —— —— —— —— —— —— —— Menu —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+//—— —— —— —— —— —— —— —— —— Menu —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -217,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//—— —— —— —— —— —— —— —— —— Shared Preferences —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+//—— —— —— —— —— —— —— —— —— Shared Preferences —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
 
     public int getSize() {
         return mySavesSP.getInt(APP_PREFERENCES_SIZE, 0);
@@ -229,6 +204,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void sizeDown() {
         editor.putInt(APP_PREFERENCES_SIZE, getSize() - 1);
+    }
+
+//—— —— —— —— —— —— —— —— —— Сохранение и удаление —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+    protected void save(EditText titleDialog, EditText textDialog ){
+        if(titleDialog.getText().toString().equals("")){
+            titleDialog.setText(getString(R.string.titleSaved));
+        }
+        if(textDialog.getText().toString().equals("")){
+            textDialog.setText(getString(R.string.textSaved));
+        }
+        sizeUp();
+        editor.putString(APP_PREFERENCES_TITLE + getSize(), titleDialog.getText().toString());
+        editor.putString(APP_PREFERENCES_TEXT + getSize(), textDialog.getText().toString());
+        editor.apply();
     }
 
     public static void delete(int position) {
