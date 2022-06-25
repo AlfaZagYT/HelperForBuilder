@@ -32,27 +32,48 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     protected static SharedPreferences mySavesSP;
+    protected static SharedPreferences.Editor editor;
     protected static final String APP_PREFERENCES = "mySaves";
     protected static final String APP_PREFERENCES_TITLE = "Title";
     protected static final String APP_PREFERENCES_TEXT = "Text";
     protected static final String APP_PREFERENCES_SIZE = "Size";
-    protected static SharedPreferences.Editor editor;
 
     //—— —— —— —— —— —— —— —— —— Объявление переменных  —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
-    private double Square = 0;
-    private int SquareMaterial, needMaterialCount, needCountPackage = 0;
-
-    private int roomL, roomW, materialL, materialW, materialC = 0;
-
-    private boolean protect1, protect2, protect3, protect4, protect5 = false;
-
-    private EditText roomLength, roomWidth, materialLength, materialWidth, materialCount;
-
     private TextView textView;
 
     private Button button, buttonSave;
 
-    private String text, resultText1, resultText2, resultText2_1, resultText3, resultText3_1, meterInSquare, error;
+    private double Square = 0;
+
+    private int roomL,
+            roomW,
+            materialL,
+            materialW,
+            materialC,
+            SquareMaterial,
+            needMaterialCount,
+            needCountPackage = 0;
+
+    private boolean protect1,
+            protect2,
+            protect3,
+            protect4,
+            protect5 = false;
+
+    private EditText roomLength,
+            roomWidth,
+            materialLength,
+            materialWidth,
+            materialCount;
+
+    private String text,
+            resultText1,
+            resultText2,
+            resultText2_1,
+            resultText3,
+            resultText3_1,
+            meterInSquare,
+            error;
 
     private final DecimalFormat formattedDouble = new DecimalFormat("#0.##");
 
