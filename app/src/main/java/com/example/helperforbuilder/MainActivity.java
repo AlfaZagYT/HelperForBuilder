@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             materialLength = findViewById(R.id.eMaterialLength);
             materialWidth = findViewById(R.id.eMaterialWidth);
             materialCount = findViewById(R.id.eMaterialCount);
+
             button = findViewById(R.id.button);
             buttonSave = findViewById(R.id.buttonSave);
             textView = findViewById(R.id.result);
