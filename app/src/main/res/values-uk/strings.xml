@@ -13,7 +13,7 @@
     <string name="result3">Або</string>+
     <string name="result3.1">упаковок.</string>
     <string name="metersInSquare">м².</string>
-    <string name="error">Обов'язкове поле!</string>
+    <string name="error">Обов\'язкове поле!</string>
     <string name="history">Нотатки</string>
     <string name="title">Введіть заголовок</string>
     <string name="text">Введіть текст</string>

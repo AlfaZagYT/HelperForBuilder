@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -77,12 +79,15 @@ public class MainActivity extends AppCompatActivity {
 
     private final DecimalFormat formattedDouble = new DecimalFormat("###,###,###,###,###,##0.##");
 
+    InputMethodManager inputMethodManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); {
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
+        setContentView(R.layout.activity_main);
+        {
+            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
 //—— —— —— —— —— —— —— —— —— Определение переменных  —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
             mySavesSP = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
             editor = mySavesSP.edit();
@@ -104,13 +109,16 @@ public class MainActivity extends AppCompatActivity {
             resultText3_1 = getString(R.string.result3_1);
             meterInSquare = getString(R.string.metersInSquare);
             error = getString(R.string.error);
+
+            inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
 //—— —— —— —— —— —— —— —— —— Кнопка подсчёта —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     protect();
-                        math(protect1, protect2, protect3, protect4, protect5);
-                        textView.setText(text);
+                    math(protect1, protect2, protect3, protect4, protect5);
+                    textView.setText(text);
+                    hideKeyboard(MainActivity.this);
                 }
             });
 //—— —— —— —— —— —— —— —— —— Кнопка сохранения —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
@@ -191,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
             text = resultText1 + " " + formattedDouble.format(Square / 10000) + " " + meterInSquare + "\n" +
                     resultText2 + " " + formattedDouble.format(needMaterialCount) + " " + resultText2_1 + "\n" +
                     resultText3 + " " + formattedDouble.format(needCountPackage) + " " + resultText3_1;
-        }else if (protect1 && protect2 && protect3 && protect4 && !protect5) {
+        } else if (protect1 && protect2 && protect3 && protect4 && !protect5) {
             needMaterialCount = (int) Math.ceil(Square / SquareMaterial);
             text = resultText1 + " " + formattedDouble.format(Square / 10000) + " " + meterInSquare + "\n" +
                     resultText2 + " " + formattedDouble.format(needMaterialCount) + " " + resultText2_1;
@@ -229,12 +237,12 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(APP_PREFERENCES_SIZE, getSize() - 1);
     }
 
-//—— —— —— —— —— —— —— —— —— Сохранение и удаление —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
-    protected void save(EditText titleDialog, EditText textDialog ){
-        if(titleDialog.getText().toString().equals("")){
+    //—— —— —— —— —— —— —— —— —— Сохранение и удаление —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+    protected void save(EditText titleDialog, EditText textDialog) {
+        if (titleDialog.getText().toString().equals("")) {
             titleDialog.setText(getString(R.string.titleSaved));
         }
-        if(textDialog.getText().toString().equals("")){
+        if (textDialog.getText().toString().equals("")) {
             textDialog.setText(getString(R.string.textSaved));
         }
         sizeUp();
@@ -248,5 +256,15 @@ public class MainActivity extends AppCompatActivity {
         editor.remove(APP_PREFERENCES_TEXT + position);
         editor.putInt(APP_PREFERENCES_SIZE, mySavesSP.getInt(APP_PREFERENCES_SIZE, 0) - 1);
         editor.apply();
+    }
+
+    //—— —— —— —— —— —— —— —— —— Другие методы —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (activity.getCurrentFocus() != null) {
+            if (activity.getCurrentFocus().getWindowToken() != null) {
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
+        }
     }
 }
