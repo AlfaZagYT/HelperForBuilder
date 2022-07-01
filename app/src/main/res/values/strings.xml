@@ -13,7 +13,7 @@
     <string name="result3">Или</string>
     <string name="result3.1">упаковок.</string>
     <string name="metersInSquare">м².</string>
-    <string name="error">Пустое поле!</string>
+    <string name="error">Обязательное поле!</string>
     <string name="history">Заметки</string>
     <string name="title">Введите заголовок</string>
     <string name="text">Введите текст</string>

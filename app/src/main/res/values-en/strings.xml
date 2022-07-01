@@ -13,7 +13,7 @@
     <string name="result3">Or</string>
     <string name="result3.1">packages.</string>
     <string name="metersInSquare">m².</string>
-    <string name="error">Empty field!</string>
+    <string name="error">Required field!</string>
     <string name="history">Notes</string>
     <string name="title">Enter title</string>
     <string name="text">Enter text</string>
