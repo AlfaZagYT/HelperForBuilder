@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private double Square = 0;
 
-    private int roomL,
+    private long roomL,
             roomW,
             materialL,
             materialW,
@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
             meterInSquare,
             error;
 
-    private final DecimalFormat formattedDouble = new DecimalFormat("#0.##");
+    private final DecimalFormat formattedDouble = new DecimalFormat("###,###,###,###,###,##0.##");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,12 +189,12 @@ public class MainActivity extends AppCompatActivity {
             needMaterialCount = (int) Math.ceil(Square / SquareMaterial);
             needCountPackage = (int) Math.ceil((Square / SquareMaterial) / materialC);
             text = resultText1 + " " + formattedDouble.format(Square / 10000) + " " + meterInSquare + "\n" +
-                    resultText2 + " " + needMaterialCount + " " + resultText2_1 + "\n" +
-                    resultText3 + " " + needCountPackage + " " + resultText3_1;
+                    resultText2 + " " + formattedDouble.format(needMaterialCount) + " " + resultText2_1 + "\n" +
+                    resultText3 + " " + formattedDouble.format(needCountPackage) + " " + resultText3_1;
         }else if (protect1 && protect2 && protect3 && protect4 && !protect5) {
             needMaterialCount = (int) Math.ceil(Square / SquareMaterial);
             text = resultText1 + " " + formattedDouble.format(Square / 10000) + " " + meterInSquare + "\n" +
-                    resultText2 + " " + needMaterialCount + " " + resultText2_1;
+                    resultText2 + " " + formattedDouble.format(needMaterialCount) + " " + resultText2_1;
         }
         protectReset();
     }
